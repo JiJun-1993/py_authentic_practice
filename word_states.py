@@ -1,6 +1,7 @@
 from pyquery import PyQuery
 import requests
-
+import jieba
+from collections import Counter
 
 def get_web_article(url):
     '''
@@ -14,8 +15,7 @@ def get_web_article(url):
     # 返回正文字符串
     return document('#js_content').text()
 
-import jieba
-from collections import Counter
+
 def stats_text_cn(text,count):
     '''
     给出一个文章的内容，返回文章中出现的两个字以上的单词以及频率
@@ -31,11 +31,12 @@ def stats_text_cn(text,count):
             chars.append(item)          
     return Counter(chars).most_common(count)
 
-import matplotlib.pylab as plt
-from matplotlib.font_manager import FontProperties
-# 提取字体对象
-font = FontProperties(fname='/Library/Fonts/Songti.ttc')
+
 def  text_graph(data,image_path = "1.png"):
+    import matplotlib.pylab as plt
+    from matplotlib.font_manager import FontProperties
+    # 提取字体对象
+    font = FontProperties(fname='/Library/Fonts/Songti.ttc')
     '''
     根据传入统计后单词数据生成图片，并保存在给定的路径下面
 
@@ -58,12 +59,16 @@ def  text_graph(data,image_path = "1.png"):
     # plt.show()
     
 
-# url = "https://mp.weixin.qq.com/s?__biz=MjM5NjAxOTU4MA==&mid=3009227944&idx=1&sn=e49abe70e3f40dc48dde676f58a6866f&chksm=904620bba731a9ad7fef0e9da20a9a505dbbfc802300bc01f25826611682f6ae4c10091a3866&mpshare=1&scene=1&srcid=&sharer_sharetime=1565316989130&sharer_shareid=a650fe44233d15768e07550857984e6f#rd"
+# from wxpy import *
+# import pickle
 
-from wxpy import *
-import pickle
-def savemsg(msg):
-    fn = 'a.pkl' 
-    with open(fn, 'w') as f: # open file with write-mode  
-        picklestring = pickle.dump(msg, f)
+# def savemsg(msg):
+#     fn = 'a.pkl' 
+#     with open(fn, 'a') as f: # open file with write-mode  
+#         picklestring = pickle.dump(msg, f)
 
+# txt_file = "txt_file.txt"        
+# with open(txt_file, 'a') as f: # open file with write-mode  
+#     # picklestring = pickle.dump("hello", f)
+#     f.writelines("dhahaha\n")
+    
